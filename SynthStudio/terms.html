@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synth Studio — Terms & Services</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --text: #111;
+      --lav: #ba9eff;
+      --pink: #f7a8f8;
+      --mint: #c6fff6;
+      --radius: 18px;
+      --shadow-soft: 0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Inter", sans-serif; }
+    body { background:var(--bg); color:var(--text); overflow-x:hidden; padding-top:90px; }
+
+    /* Background floating shapes */
+    .shape { position:fixed; border-radius:50%; filter:blur(55px); opacity:0.4; z-index:-1; animation:float 10s infinite ease-in-out; }
+    .s1 { width:200px; height:200px; background:var(--lav); top:10%; left:5%; }
+    .s2 { width:250px; height:250px; background:var(--mint); bottom:5%; right:3%; animation-delay:2s; }
+    .s3 { width:180px; height:180px; background:var(--pink); top:55%; right:20%; animation-delay:1s; }
+
+    @keyframes float { 
+      0% { transform:translateY(0); }
+      50% { transform:translateY(-25px); }
+      100% { transform:translateY(0); }
+    }
+
+    /* NAVBAR (same as index) */
+    .site-header {
+      position:fixed; top:0; left:0; width:100%; padding:10px 0;
+      display:flex; justify-content:center; pointer-events:none; z-index:100;
+    }
+    .nav-inner {
+      pointer-events:auto; width:100%; max-width:1100px; margin:0 16px;
+      padding:10px 18px; border-radius:999px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:radial-gradient(circle at top left, rgba(186,158,255,0.45), rgba(255,255,255,0.85));
+      backdrop-filter:blur(22px); border:1px solid rgba(255,255,255,0.9);
+      box-shadow:0 18px 60px rgba(90,90,140,0.25);
+    }
+    .nav-icon { width:32px; height:32px; border-radius:12px; background:white; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .brand-name {
+      font-family:"Plus Jakarta Sans"; font-size:20px; font-weight:700;
+      background:linear-gradient(90deg,var(--lav),var(--pink),var(--mint));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .navbar { display:flex; gap:26px; }
+    .nav-link { text-decoration:none; font-size:15px; color:var(--text); opacity:.75; position:relative; }
+    .nav-link:hover { opacity:1; }
+    .nav-link::after {
+      content:""; position:absolute; bottom:-3px; left:0; width:0; height:2px;
+      background:linear-gradient(90deg,var(--lav),var(--pink)); transition:.3s; border-radius:99px;
+    }
+    .nav-link:hover::after { width:100%; }
+    .cta-link {
+      padding:8px 14px; border-radius:999px; background:linear-gradient(90deg,var(--lav),var(--pink));
+      color:white; box-shadow:var(--shadow-soft);
+    }
+
+    .mobile-toggle { display:none; padding:6px 12px; font-size:20px; border:none; background:white; border-radius:999px; box-shadow:var(--shadow-soft); }
+    .navbar-mobile { display:none; position:fixed; top:78px; left:0; right:0; background:white; padding:12px 18px 18px; backdrop-filter:blur(14px); box-shadow:0 14px 40px rgba(0,0,0,0.15); }
+
+    /* PAGE LAYOUT */
+    .terms-wrapper {
+      max-width:900px;
+      margin:0 auto;
+      padding:60px 30px 120px;
+    }
+
+    .page-title {
+      font-size:42px;
+      font-weight:700;
+      text-align:center;
+      margin-bottom:18px;
+      background:linear-gradient(90deg, var(--lav), var(--pink));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .page-sub {
+      text-align:center;
+      font-size:16px;
+      opacity:.75;
+      max-width:600px;
+      margin:0 auto 50px;
+    }
+
+    h2 {
+      font-size:24px;
+      margin:32px 0 12px;
+      background:linear-gradient(90deg,var(--lav),var(--pink));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    p, li {
+      font-size:15px;
+      line-height:1.6;
+      opacity:.85;
+      margin-bottom:10px;
+    }
+
+    ul { padding-left:18px; }
+
+    footer {
+      text-align:center;
+      padding:34px;
+      opacity:.65;
+      font-size:13px;
+      border-top:1px solid rgba(0,0,0,0.06);
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .navbar { display:none; }
+      .mobile-toggle { display:block; }
+      .nav-inner { padding:8px 14px; margin:0 10px; }
+      .page-title { font-size:32px; }
+      .terms-wrapper { padding:40px 20px 100px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Floating shapes -->
+<div class="shape s1"></div>
+<div class="shape s2"></div>
+<div class="shape s3"></div>
+
+<!-- NAVBAR -->
+<header class="site-header">
+  <div class="nav-inner">
+    <div style="display:flex;align-items:center;gap:10px;margin-left:10px;">
+      <div class="nav-icon"><img src="images/Logo SY with Gradient Shine - Copy.png" style="width:100%;height:100%;object-fit:cover;"></div>
+      <span class="brand-name">Synth Studio</span>
+    </div>
+
+    <nav class="navbar">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link cta-link">Contact</a>
+    </nav>
+
+    <button class="mobile-toggle" id="mobileToggle">☰</button>
+  </div>
+</header>
+
+<div class="navbar-mobile" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="work.html">Work</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- CONTENT -->
+<div class="terms-wrapper">
+
+  <h1 class="page-title">Terms & Services</h1>
+  <p class="page-sub">Last updated: January 2025 • Please read carefully before working with us.</p>
+
+  <h2>1. Overview</h2>
+  <p>By accessing or using Synth Studio’s services, you agree to these Terms & Services. These terms apply to all clients, collaborators, and users who engage in any project with us.</p>
+
+  <h2>2. What We Provide</h2>
+  <p>Synth Studio offers design and development services including:</p>
+  <ul>
+    <li>Web development (static, dynamic, dashboards, admin panels)</li>
+    <li>App development (real-time apps, Firebase, authentication)</li>
+    <li>Brand design and UI/UX</li>
+    <li>Consultation and project planning</li>
+  </ul>
+
+  <h2>3. Payments</h2>
+  <ul>
+    <li>50% upfront payment is required for all projects.</li>
+    <li>Remaining 50% is due on delivery before final files are handed over.</li>
+    <li>No refunds once work has begun.</li>
+  </ul>
+
+  <h2>4. Revisions</h2>
+  <p>Each project includes 1–2 rounds of revisions depending on the chosen package. Additional revisions may incur extra charges.</p>
+
+  <h2>5. Delivery & Timelines</h2>
+  <p>Estimated delivery dates are provided at the start of the project but may vary depending on complexity, communication delays, or client-requested changes.</p>
+
+  <h2>6. Ownership</h2>
+  <ul>
+    <li>Clients own final delivered designs and code after full payment.</li>
+    <li>Synth Studio retains rights to showcase work in portfolio unless agreed otherwise.</li>
+  </ul>
+
+  <h2>7. Prohibited Use</h2>
+  <p>Clients may not resell, redistribute, or claim the internal code/design systems as their own product unless explicitly agreed.</p>
+
+  <h2>8. Termination</h2>
+  <p>We may refuse or terminate a project if requirements are unclear, disrespect is shown, or any unethical requests are made.</p>
+
+  <h2>9. Contact</h2>
+  <p>For any questions about these terms, reach us anytime via Instagram or the contact page.</p>
+
+</div>
+<footer class="global-footer">
+  <div class="footer-inner">
+
+    <!-- Brand -->
+    <div>
+      <div class="footer-brand">
+        <img src="images/newsynthlogo.png">
+        <span class="footer-title">Synth Studio</span>
+      </div>
+      <p class="footer-text">
+        A modern design & development studio crafting high-quality websites,
+        apps and digital products for creators and businesses.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Synth Studio — Built with clean code & pastel gradients.
+  </div>
+  <style>
+    /* ===== GLOBAL FOOTER ===== */
+
+.global-footer {
+  margin-top: 60px;
+  padding: 60px 40px 35px;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.footer-title {
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--lav), var(--pink), var(--mint));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-text {
+  font-size: 14px;
+  opacity: 0.75;
+  margin-top: 10px;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.footer-links h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0.75;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition: 0.2s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: var(--lav);
+}
+
+.footer-social a {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0.75;
+  transition: 0.2s;
+}
+
+.footer-social a:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 45px;
+  padding-top: 18px;
+  font-size: 13px;
+  opacity: 0.6;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* RESPONSIVE FOOTER */
+@media (max-width: 850px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer-brand {
+    justify-content: center;
+  }
+}
+
+  </style>
+</footer>
+
+<script>
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileToggle.addEventListener('click', () => {
+    const open = mobileMenu.style.display === 'block';
+    mobileMenu.style.display = open ? 'none' : 'block';
+    mobileToggle.textContent = open ? '☰' : '✕';
+  });
+</script>
+
+</body>
+</html>

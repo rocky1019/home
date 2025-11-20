@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synth Studio — Services</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --text: #111111;
+      --lav: #ba9eff;
+      --mint: #c6fff6;
+      --pink: #f7a8f8;
+      --shadow-soft: 0 10px 40px rgba(0,0,0,0.08);
+      --radius: 18px;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Inter",sans-serif; }
+    body { background:var(--bg); color:var(--text); overflow-x:hidden; padding-top:90px; }
+
+    /* Floating shapes */
+    .shape {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(55px);
+      opacity: 0.40;
+      z-index: -1;
+      animation: float 10s ease-in-out infinite;
+    }
+    .s1 { width:200px; height:200px; background:var(--lav); top:8%; left:5%; }
+    .s2 { width:240px; height:240px; background:var(--mint); bottom:5%; right:5%; animation-delay:2s; }
+    .s3 { width:160px; height:160px; background:var(--pink); top:50%; right:20%; animation-delay:1s; }
+
+    @keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-25px);} 100%{transform:translateY(0);} }
+
+    /* Navbar */
+    .site-header {
+      position:fixed; top:0; left:0; width:100%; padding:10px 0;
+      display:flex; justify-content:center; z-index:100; pointer-events:none;
+    }
+    .nav-inner {
+      pointer-events:auto;
+      width:100%; max-width:1100px; margin:0 16px; padding:10px 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      border-radius:999px;
+      background:radial-gradient(circle at top left, rgba(186,158,255,0.45), rgba(255,255,255,0.85));
+      backdrop-filter:blur(22px);
+      border:1px solid rgba(255,255,255,0.9);
+      box-shadow:0 18px 60px rgba(90,90,140,0.25);
+    }
+
+    .nav-icon {
+      width:32px; height:32px; border-radius:12px; background:#fff;
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    }
+
+    .brand-name {
+      font-family:"Plus Jakarta Sans",sans-serif;
+      font-size:20px; font-weight:700; letter-spacing:-0.3px;
+      background:linear-gradient(90deg,var(--lav),var(--pink),var(--mint));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      filter:drop-shadow(0 2px 6px rgba(186,158,255,0.25));
+    }
+
+    .navbar { display:flex; align-items:center; gap:26px; }
+    .nav-link {
+      text-decoration:none; font-size:15px; font-weight:500; opacity:.78; color:var(--text);
+      position:relative; transition:.25s;
+    }
+    .nav-link:hover { opacity:1; }
+    .nav-link::after {
+      content:""; position:absolute; bottom:-3px; left:0; width:0; height:2px;
+      background:linear-gradient(90deg,var(--lav),var(--pink)); transition:.3s; border-radius:99px;
+    }
+    .nav-link:hover::after { width:100%; }
+
+    .cta-link {
+      padding:8px 14px; border-radius:999px;
+      background:linear-gradient(90deg,var(--lav),var(--pink)); color:#fff;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .mobile-toggle {
+      display:none;
+      padding:6px 12px; font-size:20px;
+      background:#fff; border-radius:999px;
+      border:none; box-shadow:var(--shadow-soft); cursor:pointer;
+    }
+
+    .navbar-mobile {
+      display:none; position:fixed; top:78px; left:0; right:0;
+      padding:12px 18px 18px; background:rgba(255,255,255,0.96);
+      backdrop-filter:blur(14px); box-shadow:0 14px 40px rgba(0,0,0,0.15);
+    }
+    .navbar-mobile a {
+      display:block; padding:10px; color:var(--text); text-decoration:none; font-weight:500;
+    }
+
+    /* Sections */
+    section { padding:0 50px 110px; }
+    .page-title {
+      font-size:46px; font-weight:700; margin:40px auto 14px;
+      text-align:center; max-width:800px;
+      background:linear-gradient(90deg,var(--lav),var(--pink));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .page-sub {
+      text-align:center; font-size:17px; opacity:.75; margin-bottom:50px;
+    }
+
+    /* Service cards */
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+      gap:30px;
+    }
+    .service-card {
+      background:rgba(255,255,255,0.78);
+      backdrop-filter:blur(20px);
+      border-radius:22px;
+      padding:30px 24px 40px;
+      border:1px solid rgba(255,255,255,0.85);
+      box-shadow:var(--shadow-soft);
+      transition:.28s;
+    }
+    .service-card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 22px 60px rgba(0,0,0,0.12);
+    }
+    .service-card h3 {
+      font-size:20px; margin-bottom:10px;
+      background:linear-gradient(90deg,var(--lav),var(--pink));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .service-card p {
+      font-size:14px; opacity:.8; line-height:1.5;
+    }
+
+    /* Responsive */
+    @media(max-width:900px){
+      section { padding:0 22px 90px; }
+      .page-title { font-size:34px; }
+      .mobile-toggle { display:block; }
+      .navbar { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background shapes -->
+  <div class="shape s1"></div>
+  <div class="shape s2"></div>
+  <div class="shape s3"></div>
+
+  <!-- NAVBAR -->
+  <header class="site-header">
+    <div class="nav-inner">
+      <div style="display:flex;align-items:center;gap:10px;margin-left:15px;">
+        <div class="nav-icon"><img src="images/Logo SY with Gradient Shine - Copy.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <span class="brand-name">Synth Studio</span>
+      </div>
+
+      <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="work.html" class="nav-link">Work</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link cta-link">Contact</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle">☰</button>
+    </div>
+  </header>
+
+  <div class="navbar-mobile" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="work.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <section>
+    <h1 class="page-title">Services We Offer</h1>
+    <p class="page-sub">Design, development & branding — everything crafted with premium quality.</p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <h3>Web Development</h3>
+        <p>Landing pages, full websites, dashboards & product platforms — responsive, fast and modern.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>App Development</h3>
+        <p>Real-time apps, Firebase-powered systems, study rooms, auth, and custom interactive tools.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>UI / UX Design</h3>
+        <p>Clean, modern, consistent UI systems with beautiful visuals and strong design identity.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Branding & Identity</h3>
+        <p>Wordmarks, color palettes, logos, theme visuals, digital identity kits & social branding.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Admin Panels</h3>
+        <p>Full custom dashboards, database management tools, analytics, tables & secure auth flows.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Consultation</h3>
+        <p>Project planning, UI/UX advice, app feature guidance and full-stack support.</p>
+      </div>
+
+    </div>
+  </section>
+<footer class="global-footer">
+  <div class="footer-inner">
+
+    <!-- Brand -->
+    <div>
+      <div class="footer-brand">
+        <img src="images/newsynthlogo.png">
+        <span class="footer-title">Synth Studio</span>
+      </div>
+      <p class="footer-text">
+        A modern design & development studio crafting high-quality websites,
+        apps and digital products for creators and businesses.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Synth Studio — Built with clean code & pastel gradients.
+  </div>
+  <style>
+    /* ===== GLOBAL FOOTER ===== */
+
+.global-footer {
+  margin-top: 60px;
+  padding: 60px 40px 35px;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.footer-title {
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--lav), var(--pink), var(--mint));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-text {
+  font-size: 14px;
+  opacity: 0.75;
+  margin-top: 10px;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.footer-links h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0.75;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition: 0.2s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: var(--lav);
+}
+
+.footer-social a {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0.75;
+  transition: 0.2s;
+}
+
+.footer-social a:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 45px;
+  padding-top: 18px;
+  font-size: 13px;
+  opacity: 0.6;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* RESPONSIVE FOOTER */
+@media (max-width: 850px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer-brand {
+    justify-content: center;
+  }
+}
+
+  </style>
+</footer>
+
+
+<script>
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  mobileToggle.addEventListener('click', () => {
+    const open = mobileMenu.style.display === 'block';
+    mobileMenu.style.display = open ? 'none' : 'block';
+    mobileToggle.textContent = open ? '☰' : '✕';
+  });
+</script>
+
+</body>
+</html>

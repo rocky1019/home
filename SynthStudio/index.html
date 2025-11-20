@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synth Studio — Home</title>
+
+  <!-- Modern Clean Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --text: #111111;
+      --lav: #ba9eff;
+      --mint: #c6fff6;
+      --pink: #f7a8f8;
+      --shadow-soft: 0 10px 40px rgba(0,0,0,0.08);
+      --radius: 18px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      padding-top: 90px; /* space for fixed navbar */
+    }
+
+    /* Floating shapes */
+    .shape {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(55px);
+      opacity: 0.4;
+      z-index: -1;
+      animation: float 10s ease-in-out infinite;
+    }
+    .s1 { width: 200px; height: 200px; background: var(--lav); top: 8%; left: 5%; }
+    .s2 { width: 240px; height: 240px; background: var(--mint); bottom: 5%; right: 5%; animation-delay: 2s; }
+    .s3 { width: 160px; height: 160px; background: var(--pink); top: 50%; right: 20%; animation-delay: 1s; }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ========== LIQUID GLASS NAVBAR ========== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .nav-inner {
+      pointer-events: auto;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 16px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left,
+                  rgba(186,158,255,0.45),
+                  rgba(255,255,255,0.85));
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 18px 60px rgba(90,90,140,0.25);
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 10px; }
+
+    .nav-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .brand-text {
+      font-weight: 700;
+      font-size: 18px;
+      background: linear-gradient(90deg, var(--lav), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .navbar { display: flex; align-items: center; gap: 26px; }
+
+    .nav-link {
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      opacity: 0.78;
+      position: relative;
+      transition: 0.25s;
+    }
+
+    .nav-link:hover { opacity: 1; }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--lav), var(--pink));
+      transition: 0.3s;
+    }
+
+    .nav-link:hover::after { width: 100%; }
+
+    .cta-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--lav), var(--pink));
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mobile-toggle {
+      display: none;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .navbar-mobile {
+      display: none;
+      position: fixed;
+      top: 78px;
+      left: 0;
+      right: 0;
+      padding: 12px 18px 18px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+      z-index: 90;
+    }
+
+    .navbar-mobile a {
+      display: block;
+      padding: 10px 10px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      opacity: 0.85;
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      padding: 310px 20px 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 780px;
+      margin: 0 auto 18px;
+      background: linear-gradient(90deg, var(--lav), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero p {
+      font-size: 18px;
+      opacity: 0.78;
+      max-width: 520px;
+      margin: 0 auto 26px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn {
+      padding: 12px 26px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      background: linear-gradient(90deg, var(--lav), var(--pink));
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--text);
+      border: 2px solid var(--lav);
+    }
+
+    /* HERO VIDEO */
+    .hero-video-wrap {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 1400px;
+      opacity: 0.65;
+      mix-blend-mode: screen;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-video-wrap video {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+      filter: brightness(1.18);
+    }
+
+    /* ========== SECTIONS BELOW HERO ========== */
+
+    /* only non-hero sections */
+    section:not(.hero) {
+      padding: 0 50px 100px;
+    }
+
+    .section-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--lav), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: left;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      opacity: 0.7;
+      margin-bottom: 26px;
+      text-align: left;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 26px;
+    }
+
+    .feat {
+      padding: 22px 22px 24px;
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255,255,255,0.9);
+      position: relative;
+      overflow: hidden;
+      transition: 0.25s;
+    }
+
+    .feat::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(186,158,255,0.18), rgba(198,255,246,0.1));
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    .feat-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .feat h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .feat p {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .feat:hover::before { opacity: 1; }
+    .feat:hover { transform: translateY(-4px); }
+
+    .why-section {
+      padding: 0 50px 110px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .why-image {
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .why-image img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .why-copy p {
+      font-size: 16px;
+      opacity: 0.78;
+      margin-bottom: 16px;
+    }
+
+    .why-copy ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .why-copy li {
+      margin-bottom: 10px;
+      font-size: 15px;
+      opacity: 0.85;
+    }
+
+    footer {
+      padding: 28px 40px 34px;
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.6;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      margin-top: 20px;
+    }
+
+    .brand-name {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      background: linear-gradient(90deg, var(--lav), var(--pink), var(--mint));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 6px rgba(186,158,255,0.25));
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      body { padding-top: 80px; }
+
+      .nav-inner {
+        margin: 0 10px;
+        padding: 8px 14px;
+      }
+
+      .navbar { display: none; }
+      .mobile-toggle { display: block; }
+
+      section:not(.hero) {
+        padding: 0 22px 80px;
+      }
+
+      .why-section {
+        padding: 0 22px 90px;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 220px 20px 100px;
+      }
+
+      .hero h1 { font-size: 34px; }
+      .hero p { font-size: 16px; }
+    }
+    .hero-content {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(6px);
+  animation: heroAppear 1.9s ease-out 0.7s forwards;
+  z-index: 2;
+}
+
+@keyframes heroAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+@media (max-width: 700px) {
+  .hero-video-wrap {
+    width: 100%;             /* make video wider so crop looks clean */
+    top: -10px;              /* small adjustment */
+    margin-left: 7px;
+  }
+
+  .hero-video-wrap video {
+    height: 260px;           /* controls how much vertical crop */
+    object-fit: cover;       /* fills the area */
+    object-position: top;    /* shows TOP part, crops BOTTOM */
+  }
+}
+/* ===== PRICING SECTION ===== */
+.pricing-section {
+  padding: 40px 50px 120px;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 26px;
+  margin-top: 35px;
+}
+
+.price-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  border-radius: 22px;
+  padding: 28px 24px 34px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.8);
+  transition: 0.25s;
+  position: relative;
+}
+
+.price-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.10);
+}
+
+.price-card.highlight {
+  border: 2px solid var(--lav);
+  box-shadow: 0 20px 55px rgba(186,158,255,0.25);
+}
+
+.price-card h3 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--lav), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+
+.price-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 24px;
+}
+
+.price-card ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.price-btn {
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--lav), var(--pink));
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: 0.2s;
+}
+
+.price-btn:hover {
+  transform: translateY(-4px);
+}
+/* ===== GLOBAL FOOTER ===== */
+
+.global-footer {
+  margin-top: 60px;
+  padding: 60px 40px 35px;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.footer-title {
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--lav), var(--pink), var(--mint));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-text {
+  font-size: 14px;
+  opacity: 0.75;
+  margin-top: 10px;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.footer-links h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0.75;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition: 0.2s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: var(--lav);
+}
+
+.footer-social a {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0.75;
+  transition: 0.2s;
+}
+
+.footer-social a:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 45px;
+  padding-top: 18px;
+  font-size: 13px;
+  opacity: 0.6;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* RESPONSIVE FOOTER */
+@media (max-width: 850px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer-brand {
+    justify-content: center;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Floating background shapes -->
+  <div class="shape s1"></div>
+  <div class="shape s2"></div>
+  <div class="shape s3"></div>
+
+  <!-- LIQUID GLASS NAVBAR -->
+  <header class="site-header">
+    <div class="nav-inner">
+      <div style="display:flex; align-items:center; gap:10px; margin-left:15px;">
+        <div class="nav-icon">
+          <img src="images/newsynthlogo.png" alt="Synth Studio" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <span class="brand-name">Synth Studio</span>
+      </div>
+
+      <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="#" class="nav-link">Work</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link cta-link">Contact</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle">☰</button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV MENU -->
+  <div class="navbar-mobile" id="mobileMenu">
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Work</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-video-wrap">
+      <video autoplay loop muted playsinline>
+        <source src="images/synthbannervideo.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="hero-content">
+  <h1>We Build Premium Brands & Digital Experiences.</h1>
+  <p>Websites, apps, UI/UX and branding — crafted for modern businesses and creators.</p>
+  <div class="hero-cta">
+      <button class="btn">See Work</button>
+      <button class="btn btn-outline">Start a Project</button>
+  </div>
+</div>
+
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section>
+    <h2 class="section-title">What We Do</h2>
+    <p class="section-sub">A small studio shipping full-stack projects — from idea to live deployment.</p>
+
+    <div class="features">
+      <div class="feat">
+        <div class="feat-inner">
+          <h3>Web Development</h3>
+          <p>Landing pages, marketing sites and full multi-page web apps, all responsive and fast.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-inner">
+          <h3>App Development</h3>
+          <p>Real-time apps, dashboards, study rooms, auth, and Firebase-powered experiences.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-inner">
+          <h3>Branding & UI/UX</h3>
+          <p>Clean visuals, strong layout, and design systems that make products feel premium.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CLIENTS CHOOSE US -->
+  <section class="why-section">
+    <h2 class="section-title">Why Clients Choose Us</h2>
+    <div class="section-sub">We combine design, dev and product thinking in one small team.</div>
+
+    <div class="why-grid">
+      <div class="why-copy">
+        <p>We don’t just write code — we think about how your product feels, converts and scales. Every project is treated like a real product, not just a one-time website.</p>
+        <ul>
+          <li>⚡ Fast, focused execution on real features</li>
+          <li>🎨 UI that actually looks modern (not template-ish)</li>
+          <li>📱 Mobile-first and responsive by default</li>
+          <li>🚀 Set up for real users, not just a demo build</li>
+        </ul>
+      </div>
+      <div class="why-image">
+        <img src="images/synthillu.png" alt="Workspace and design preview" />
+      </div>
+    </div>
+  </section>
+<section class="pricing-section">
+  <h2 class="section-title">Packages & Pricing</h2>
+  <p class="section-sub">Choose what fits your project — websites, apps, dashboards & branding.</p>
+
+  <div class="pricing-grid">
+
+    <!-- Standard -->
+    <div class="price-card">
+      <h3>Standard</h3>
+      <p class="price">₹4,999</p>
+      <ul>
+        <li>✔ 1–3 page website</li>
+        <li>✔ Clean UI design</li>
+        <li>✔ Mobile responsive</li>
+        <li>✔ Basic animations</li>
+        <li>✔ 3-day delivery</li>
+      </ul>
+      <button class="price-btn">Start Standard</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="price-card highlight">
+      <h3>Pro</h3>
+      <p class="price">₹9,999</p>
+      <ul>
+        <li>✔ 4–7 page website or app</li>
+        <li>✔ Premium modern UI/UX</li>
+        <li>✔ Real-time features (Firebase)</li>
+        <li>✔ Smooth animations</li>
+        <li>✔ 7-day delivery</li>
+      </ul>
+      <button class="price-btn">Start Pro</button>
+    </div>
+
+    <!-- Premium -->
+    <div class="price-card">
+      <h3>Premium</h3>
+      <p class="price">₹14,999+</p>
+      <ul>
+        <li>✔ Full multi-page product</li>
+        <li>✔ Branding + UI/UX system</li>
+        <li>✔ Admin panel + DB</li>
+        <li>✔ Realtime, auth, dashboards</li>
+        <li>✔ Priority support</li>
+      </ul>
+      <button class="price-btn">Start Premium</button>
+    </div>
+
+  </div>
+</section>
+
+ <footer class="global-footer">
+  <div class="footer-inner">
+
+    <!-- Brand -->
+    <div>
+      <div class="footer-brand">
+        <img src="images/newsynthlogo.png">
+        <span class="footer-title">Synth Studio</span>
+      </div>
+      <p class="footer-text">
+        A modern design & development studio crafting high-quality websites,
+        apps and digital products for creators and businesses.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Synth Studio — Built with clean code & pastel gradients.
+  </div>
+</footer>
+
+
+  <script>
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = isOpen ? 'none' : 'block';
+      mobileToggle.textContent = isOpen ? '☰' : '✕';
+    });
+
+    Array.from(mobileMenu.querySelectorAll('a')).forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.style.display = 'none';
+        mobileToggle.textContent = '☰';
+      });
+    });
+  </script>
+
+</body>
+</html>
