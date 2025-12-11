@@ -176,7 +176,7 @@
 
     /* ========== HERO SECTION ========== */
     .hero {
-      padding: 310px 20px 120px;
+      padding: 180px 20px 250px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -235,25 +235,7 @@
     }
 
     /* HERO VIDEO */
-    .hero-video-wrap {
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 1400px;
-      opacity: 0.65;
-      mix-blend-mode: screen;
-      z-index: 1;
-      pointer-events: none;
-    }
 
-    .hero-video-wrap video {
-      width: 100%;
-      height: auto;
-      border-radius: 0;
-      filter: brightness(1.18);
-    }
 
     /* ========== SECTIONS BELOW HERO ========== */
 
@@ -408,7 +390,8 @@
       }
 
       .hero {
-        padding: 220px 20px 100px;
+       padding: 180px 20px 120px;
+
       }
 
       .hero h1 { font-size: 34px; }
@@ -624,6 +607,47 @@
     justify-content: center;
   }
 }
+/* HERO ILLUSTRATION (STATIC) */
+.hero-illu-wrap {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1300px;
+  opacity: 0.22;               /* soft + clean */
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-illu-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(1.05);
+}
+
+/* Mobile fix */
+@media (max-width: 700px) {
+  .hero-illu-wrap {
+    top: -10px;
+    opacity: 0.18; 
+    max-width: 1100px; 
+  }
+}
+.hero h1 {
+  background: linear-gradient(90deg, #c6fff6, #ba9eff, #f7a8f8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter: drop-shadow(0 0 12px rgba(186,158,255,0.45))
+          drop-shadow(0 0 22px rgba(198,255,246,0.35));
+}
+
+.hero p {
+  text-shadow: 0 0 8px rgba(186,158,255,0.35);
+}
+
 
   </style>
 </head>
@@ -647,9 +671,9 @@
       <nav class="navbar">
         <a href="index.html" class="nav-link">Home</a>
         <a href="services.html" class="nav-link">Services</a>
-        <a href="#" class="nav-link">Work</a>
-        <a href="#" class="nav-link">About</a>
-        <a href="#" class="nav-link cta-link">Contact</a>
+        <a href="work.html" class="nav-link">Work</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link cta-link">Contact</a>
       </nav>
 
       <button class="mobile-toggle" id="mobileToggle">☰</button>
@@ -658,29 +682,30 @@
 
   <!-- MOBILE NAV MENU -->
   <div class="navbar-mobile" id="mobileMenu">
-    <a href="#">Home</a>
-    <a href="#">Services</a>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
     <a href="#">Work</a>
     <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="contact.html">Contact</a>
   </div>
 
-  <!-- HERO -->
   <section class="hero">
-    <div class="hero-video-wrap">
-      <video autoplay loop muted playsinline>
-        <source src="images/Synthbannervideo.mp4" type="video/mp4">
-      </video>
-    </div>
+   <div class="hero-illu-wrap">
+
+   </div>
+
+   <!-- ⭐ NEW Glass Blob Behind Text -->
+   <div class="hero-blob"></div>
 
     <div class="hero-content">
-  <h1>We Build Premium Brands & Digital Experiences.</h1>
-  <p>Websites, apps, UI/UX and branding — crafted for modern businesses and creators.</p>
-  <div class="hero-cta">
-      <button class="btn">See Work</button>
-      <button class="btn btn-outline">Start a Project</button>
-  </div>
-</div>
+      <h1>We Build Modern Websites & Full-Stack Apps.</h1>
+      <p>Crafted with clean UI, real features, and smooth user experience.</p>
+      <div class="hero-cta">
+          <button class="btn">See Work</button>
+          <button class="btn btn-outline">Start a Project</button>
+      </div>
+    </div>
+</section>
 
   </section>
 
@@ -842,4 +867,3 @@
 
 </body>
 </html>
-
